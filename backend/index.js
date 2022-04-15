@@ -13,6 +13,11 @@ const errorHandlerMiddleware = require("./middlewares/errorHandlerMiddleware");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// routes
+const userRoute = require("./routes/userRoute");
+
+app.use("/api", userRoute);
+
 // handling errors
 app.use(errorHandlerMiddleware);
 
