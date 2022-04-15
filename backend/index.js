@@ -13,12 +13,17 @@ const errorHandlerMiddleware = require("./middlewares/errorHandlerMiddleware");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// routes
+const userRoute = require("./routes/userRoute");
+
+app.use("/api", userRoute);
+
 // handling errors
 app.use(errorHandlerMiddleware);
 
 // no route page
 app.use("*", (req, res, next) => {
-  res.status(400).json({ success: "fail", message: "No such route exists" });
+  res.status(400).json({ status: "fail", message: "No such route exists" });
 });
 
 // start func

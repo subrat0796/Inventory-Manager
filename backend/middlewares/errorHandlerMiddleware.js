@@ -4,7 +4,7 @@ const errorHandlerMiddleware = (err, req, res, next) => {
   res.status(statusCode);
 
   res.json({
-    success: "fail",
+    status: "fail",
     message: err.message,
     stack: process.env.NODE_ENV === "production" ? null : err.stack,
   });
