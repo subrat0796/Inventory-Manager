@@ -1,5 +1,7 @@
 // global packages requiring
 const express = require("express");
+const cors = require("cors");
+const cron = require("node-cron");
 const dotenv = require("dotenv").config();
 
 // variables
@@ -8,8 +10,10 @@ const app = express();
 // local packages requiring
 const connectDB = require("./utils/connectDB");
 const errorHandlerMiddleware = require("./middlewares/errorHandlerMiddleware");
+const checkTokenValidation = require("./utils/checkTokenValidation");
 
 // global middlewares
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -24,6 +28,12 @@ app.use(errorHandlerMiddleware);
 // no route page
 app.use("*", (req, res, next) => {
   res.status(400).json({ status: "fail", message: "No such route exists" });
+});
+
+// nodecron setup
+cron.schedule("* 1 * * *", () => {
+  console.log("Doing a check for tokens");
+  checkTokenValidation();
 });
 
 // start func
