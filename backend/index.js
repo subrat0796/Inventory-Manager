@@ -23,7 +23,7 @@ app.use(errorHandlerMiddleware);
 
 // no route page
 app.use("*", (req, res, next) => {
-  res.status(400).json({ success: "fail", message: "No such route exists" });
+  res.status(400).json({ status: "fail", message: "No such route exists" });
 });
 
 // start func

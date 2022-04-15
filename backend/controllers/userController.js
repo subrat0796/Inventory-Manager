@@ -106,7 +106,16 @@ const register = asyncHandler(async (req, res, next) => {
 // @desc    logout user
 // @route   GET /api/logout
 // @access  Private
-const logout = asyncHandler(async (req, res, next) => {});
+const logout = asyncHandler(async (req, res, next) => {
+  const userId = req.user._id;
+
+  await Token.findOneAndDelete({ user: userId });
+
+  res.status(200).json({
+    success: "true",
+    message: "user logout success",
+  });
+});
 
 // generate jwt
 const generateJWT = (id) => {
