@@ -7,10 +7,19 @@ const app = express();
 
 // local packages requiring
 const connectDB = require("./utils/connectDB");
+const errorHandlerMiddleware = require("./middlewares/errorHandlerMiddleware");
 
 // global middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// handling errors
+app.use(errorHandlerMiddleware);
+
+// no route page
+app.use("*", (req, res, next) => {
+  res.status(400).json({ success: "fail", message: "No such route exists" });
+});
 
 // start func
 const start = async () => {
